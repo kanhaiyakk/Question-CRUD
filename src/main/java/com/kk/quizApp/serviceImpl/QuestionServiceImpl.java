@@ -1,6 +1,7 @@
 package com.kk.quizApp.serviceImpl;
 
 import com.kk.quizApp.entity.Question;
+import com.kk.quizApp.exceptions.ResourceNotFoundException;
 import com.kk.quizApp.repository.QuestionRepo;
 import com.kk.quizApp.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,7 @@ public class QuestionServiceImpl implements QuestionService {
         if (question.isPresent()){
             return question.get();
         }
-        throw new RuntimeException("Question not found for the id "+ id);
+        throw new ResourceNotFoundException("Question not found for the id "+ id);
     }
 
     @Override
