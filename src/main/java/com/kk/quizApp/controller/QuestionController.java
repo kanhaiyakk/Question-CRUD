@@ -2,6 +2,7 @@ package com.kk.quizApp.controller;
 
 import com.kk.quizApp.entity.Question;
 import com.kk.quizApp.service.QuestionService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +31,7 @@ public class QuestionController {
     }
 
     @PostMapping("/question")
-    public Question addQuestion(@RequestBody Question question){
+    public Question addQuestion(@Valid @RequestBody Question question){
         return questionService.addQuestion(question);
     }
 
