@@ -4,6 +4,7 @@ import com.kk.quizApp.entity.Question;
 import com.kk.quizApp.service.QuestionService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,23 +17,23 @@ public class QuestionController {
     QuestionService questionService;
 
     @GetMapping("/allQuestions")
-    public List<Question> getAllQuestions(){
-        return questionService.getAllQuestions();
+    public ResponseEntity<List<Question>> getAllQuestions(){
+        return new ResponseEntity<>(questionService.getAllQuestions(), HttpStatus.OK);
     }
 
     @GetMapping("/category/{category}")
-    public List<Question> getQuestionsByCategory(@PathVariable String category){
-        return questionService.getQuestionsByCategory(category);
+    public ResponseEntity<List<Question>> getQuestionsByCategory(@PathVariable String category){
+        return new ResponseEntity<>( questionService.getQuestionsByCategory(category),HttpStatus.OK);
     }
 
     @GetMapping("/question/{id}")
-    public Question getQuestionsById(@PathVariable Integer id){
-        return questionService.getQuestionsById(id);
+    public ResponseEntity<Question> getQuestionsById(@PathVariable Integer id){
+        return new ResponseEntity<>(questionService.getQuestionsById(id),HttpStatus.OK);
     }
 
     @PostMapping("/question")
-    public Question addQuestion(@Valid @RequestBody Question question){
-        return questionService.addQuestion(question);
+    public ResponseEntity<Question> addQuestion(@Valid @RequestBody Question question){
+        return new ResponseEntity<>(questionService.addQuestion(question),HttpStatus.CREATED);
     }
 
     @PutMapping("/question/{id}")
@@ -46,6 +47,7 @@ public class QuestionController {
     }
 
 
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
     @DeleteMapping("/delete")
     private void deleteQuestion(@RequestParam Integer id){
         questionService.deleteQuestion(id);
